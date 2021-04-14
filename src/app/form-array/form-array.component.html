@@ -7,28 +7,35 @@
 
             <div formArrayName='xQuestion'>
                 <div *ngFor="let X of quizForm['controls'].xQuestion['controls'];index as ix" formGroupName="{{ix}}">
-                    <input class="form-control my-1" type="text" formControlName="question" placeholder="Question {{ix+1}}">
-                    {{quizForm['controls'].xQuestion.value | json}}
-                    <!-- <small class="text-danger" *ngIf="quizForm['controls'].xQuestion.get('question').hasError('required')">*Question is required</small> -->
+                    <input class="form-control my-1" type="text" formControlName="question"
+                        placeholder="Question {{ix+1}}">
+                    <!-- {{quizForm['controls'].xQuestion['controls'][ix].get('question').hasError('required') | json}} -->
+                    <small class="text-danger"
+                        *ngIf="quizForm['controls'].xQuestion['controls'][ix].get('question').hasError('required') && quizForm['controls'].xQuestion['controls'][ix].get('question').touched">
+                        *Question is required </small>
                     <!-- Option Array Starts -->
 
                     <div formArrayName='yOptions'>
                         <div *ngFor="let Y of X['controls'].yOptions['controls'];index as iy" formGroupName="{{iy}}">
-                            <input class="form-control my-1" type="text" formControlName="option" placeholder="Option {{iy+1}}">
+                            <input class="form-control my-1" type="text" formControlName="option"
+                                placeholder="Option {{iy+1}}">
                         </div>
                     </div>
 
                     <!-- Option Array Ends -->
 
-                    <button class="btn btn-warning w-100 mt-2" type="button" [disabled]="!X['controls'].yOptions.valid" (click)="addOption(ix)">Add Option</button>
+                    <button class="btn btn-warning w-100 mt-2" type="button" [disabled]="!X['controls'].yOptions.valid"
+                        (click)="addOption(ix)">Add Option</button>
                 </div>
             </div>
 
             <!-- Question Array Ends -->
 
-            <button class="btn btn-success w-100 mt-2" type="button" [disabled]="!quizForm['controls'].xQuestion.valid" (click)="addQuestion()">Add Question</button>
+            <button class="btn btn-success w-100 mt-2" type="button" [disabled]="!quizForm['controls'].xQuestion.valid"
+                (click)="addQuestion()">Add Question</button>
             <button class="btn btn-danger w-100 mt-2" type="button" (click)="check()">Test</button>
-            <button class="btn btn-primary w-100 mt-2" [disabled]="!quizForm.valid" type="button" (click)="check()">Submit</button>
+            <button class="btn btn-primary w-100 mt-2" [disabled]="!quizForm.valid" type="button"
+                (click)="check()">Submit</button>
         </form>
     </div>
 </div>
