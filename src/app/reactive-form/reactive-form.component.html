@@ -1,0 +1,23 @@
+<div class="container">
+  {{registrationForm.value | json}}
+  <div class="form-box">
+    <form [formGroup]="registrationForm">
+      <input type="email" placeholder="Email" formControlName="email" class="form-control mt-2" />
+      <div class="text-start" *ngIf="registrationForm.get('email').invalid && registrationForm.get('email').touched">
+        <small class="text-danger" *ngIf="registrationForm.get('email').hasError('required')">*Email is required</small>
+        <small class="text-danger" *ngIf="registrationForm.get('email').hasError('email')">*Proper Email is required</small>
+      </div>
+      <input type="password" formControlName="password" placeholder="Password" class="form-control mt-2"/>
+      <div class="text-start" *ngIf="registrationForm.get('password').invalid && registrationForm.get('password').touched">
+        <small class="text-danger" *ngIf="registrationForm.get('password').hasError('required')">*Password is required</small>
+        <small class="text-danger" *ngIf="registrationForm.get('password').hasError('pattern')">*Password should contain Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character</small>
+      </div>
+      <input type="password" placeholder="Confirm Password" class="form-control mt-2" formControlName="confirmPassword" (ngModelChange)="change()"/>
+      <div class="text-start" *ngIf="registrationForm.get('confirmPassword').invalid && registrationForm.get('confirmPassword').touched">
+        <small class="text-danger" *ngIf="registrationForm.get('confirmPassword').hasError('required')">*Confirm Password is required</small>
+      </div>
+      <small class="text-danger" *ngIf="registrationForm.hasError('notSame')">*Password Does not match</small>
+      <button (click)="check()" class="btn btn-success w-100 mt-2" [disabled]="!registrationForm.valid">Submit</button>
+    </form>
+  </div>
+</div>

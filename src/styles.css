@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+.container{
+    max-width: 1200px;
+    margin: 0 auto !important;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 94vh;
+}
+.form-box{
+    width: 700px;
+    height: auto;
+}
+input,form{
+    width: 100%;
+}
