@@ -8,17 +8,24 @@
             <div formArrayName='xQuestion'>
                 <div *ngFor="let X of quizForm['controls'].xQuestion['controls'];index as ix" formGroupName="{{ix}}">
                     <input class="form-control my-1" type="text" formControlName="question"
+                        [class.is-invalid]="quizForm['controls'].xQuestion['controls'][ix].get('question').invalid && quizForm['controls'].xQuestion['controls'][ix].get('question').touched"
                         placeholder="Question {{ix+1}}">
-                    <!-- {{quizForm['controls'].xQuestion['controls'][ix].get('question').hasError('required') | json}} -->
-                    <small class="text-danger"
+                    <!-- {{quizForm['controls'].xQuestion['controls'][ix].get('question').invalid }} -->
+                    <small class="text-danger text-start"
                         *ngIf="quizForm['controls'].xQuestion['controls'][ix].get('question').hasError('required') && quizForm['controls'].xQuestion['controls'][ix].get('question').touched">
                         *Question is required </small>
+
                     <!-- Option Array Starts -->
 
                     <div formArrayName='yOptions'>
                         <div *ngFor="let Y of X['controls'].yOptions['controls'];index as iy" formGroupName="{{iy}}">
                             <input class="form-control my-1" type="text" formControlName="option"
-                                placeholder="Option {{iy+1}}">
+                                placeholder="Option {{iy+1}}"
+                                [class.is-invalid]="X['controls'].yOptions['controls'][iy].invalid && X['controls'].yOptions['controls'][iy].touched">
+                            <!-- {{ X['controls'].yOptions['controls'][iy].get('option').value| json}} -->
+                            <small class="text-danger"
+                                *ngIf="X['controls'].yOptions['controls'][iy].get('option').hasError('required')  && X['controls'].yOptions['controls'][iy].get('option').touched">
+                                *Option is required </small>
                         </div>
                     </div>
 
@@ -33,7 +40,6 @@
 
             <button class="btn btn-success w-100 mt-2" type="button" [disabled]="!quizForm['controls'].xQuestion.valid"
                 (click)="addQuestion()">Add Question</button>
-            <button class="btn btn-danger w-100 mt-2" type="button" (click)="check()">Test</button>
             <button class="btn btn-primary w-100 mt-2" [disabled]="!quizForm.valid" type="button"
                 (click)="check()">Submit</button>
         </form>
